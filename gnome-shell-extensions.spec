@@ -5,7 +5,7 @@
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Name:		gnome-shell-extensions
 Version:	%{major_version}.0
-Release:	1
+Release:	2
 Group:		X11/Applications
 # The entire source code is GPLv2+ except lib/convenience.js which is BSD
 License:	GPLv2+ and BSD
@@ -22,7 +22,6 @@ BuildRequires:	gnome-desktop-devel
 BuildRequires:	intltool
 BuildRequires:	libgtop-devel
 Requires:	gnome-shell >= %{min_gs_version}
-BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		ext_prefix	gnome-shell-extension
@@ -36,16 +35,18 @@ Enabled extensions:
   - alternative-status-menu
   - apps-menu
   - auto-move-windows
-  - dock
+  - default-min-max
   - drive-menu
+  - launch-new-instance
   - native-window-placement
   - places-menu
+  - static-workspaces
   - systemMonitor
   - user-theme
+  - window-list
   - windowsNavigator
   - workspace-indicator
   - xrandr-indicator
-  - gajim
 
 %package common
 Summary:	Files common to GNOME Shell Extensions
