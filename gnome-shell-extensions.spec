@@ -1,17 +1,17 @@
 %define		major_version		3.8
 # Minimum GNOME Shell version supported
-%define		global min_gs_version	%{major_version}.0
+%define		global min_gs_version	%{major_version}.3
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Name:		gnome-shell-extensions
-Version:	%{major_version}.2
+Version:	%{major_version}.3.1
 Release:	1
 Group:		X11/Applications
 # The entire source code is GPLv2+ except lib/convenience.js which is BSD
 License:	GPLv2+ and BSD
 URL:		http://live.gnome.org/GnomeShell/Extensions
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.8/%{name}-%{version}.tar.xz
-# Source0-md5:	80a1af799f4360160719c420c59694a2
+# Source0-md5:	69ea6492fe1c4f1245f1e62a73fe7ec9
 BuildRequires:	gnome-common
 BuildRequires:	gnome-desktop-devel
 BuildRequires:	intltool
@@ -30,12 +30,10 @@ Enabled extensions:
   - alternative-status-menu
   - apps-menu
   - auto-move-windows
-  - default-min-max
   - drive-menu
   - launch-new-instance
   - native-window-placement
   - places-menu
-  - static-workspaces
   - systemMonitor
   - user-theme
   - window-list
@@ -48,8 +46,10 @@ Summary:	Files common to GNOME Shell Extensions
 License:	GPL v2+
 Group:		X11/Applications
 Requires:	gnome-shell >= %{min_gs_version}
+Obsoletes:	gnome-shell-extension-default-min-max < 3.8.3.1
 Obsoletes:	gnome-shell-extension-dock < 3.8.0
 Obsoletes:	gnome-shell-extension-gajim < 3.8.0
+Obsoletes:	gnome-shell-extension-static-workspaces < 3.8.3.1
 
 %description common
 GNOME Shell Extensions is a collection of extensions providing
@@ -60,12 +60,11 @@ directories needed by extensions are provided here.
 Summary:	GNOME "classic" mode session
 License:	GPL v2+
 Group:		X11/Applications
+Requires(post,postun):	glib2 >= 1:2.26.0
 Requires:	%{ext_prefix}-alternate-tab = %{version}-%{release}
 Requires:	%{ext_prefix}-apps-menu = %{version}-%{release}
-Requires:	%{ext_prefix}-default-min-max = %{version}-%{release}
 Requires:	%{ext_prefix}-launch-new-instance = %{version}-%{release}
 Requires:	%{ext_prefix}-places-menu = %{version}-%{release}
-Requires:	%{ext_prefix}-static-workspaces = %{version}-%{release}
 Requires:	%{ext_prefix}-window-list = %{version}-%{release}
 Requires:	gnome-session >= 1:3.8.0
 
@@ -115,16 +114,6 @@ Lets you manage your workspaces more easily, assigning a specific
 workspace to each application as soon as it creates a window, in a
 manner configurable with a GSettings key.
 
-%package -n %{ext_prefix}-default-min-max
-Summary:	Add minimize and maximize titlebar buttons in GNOME Shell
-License:	GPL v2+
-Group:		X11/Applications
-Requires:	%{name}-common = %{version}-%{release}
-
-%description -n %{ext_prefix}-default-min-max
-This GNOME Shell extension adds minimize and maximize buttons to the
-titlebar by default.
-
 %package -n %{ext_prefix}-drive-menu
 Summary:	Disk device manager in the system status area
 License:	GPL v2+
@@ -166,15 +155,6 @@ Requires:	%{name}-common = %{version}-%{release}
 %description -n %{ext_prefix}-places-menu
 Adds a menu in the system status area that resembles the Places menu
 from GNOME 2.x
-
-%package -n %{ext_prefix}-static-workspaces
-Summary:	Disable dynamic workspace management in GNOME Shell
-License:	GPL v2+
-Group:		X11/Applications
-Requires:	%{name}-common = %{version}-%{release}
-
-%description -n %{ext_prefix}-static-workspaces
-This GNOME Shell extension disables dynamic workspace management.
 
 %package -n %{ext_prefix}-systemMonitor
 Summary:	Monitor your system status
@@ -269,6 +249,12 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post -n gnome-classic-session
+%glib_compile_schemas
+
+%postun -n gnome-classic-session
+%glib_compile_schemas
+
 %post -n %{ext_prefix}-alternative-status-menu
 %glib_compile_schemas
 
@@ -307,6 +293,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n gnome-classic-session
 %defattr(644,root,root,755)
 %{_desktopdir}/gnome-shell-classic.desktop
+%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.classic-overrides.gschema.xml
 %{_datadir}/gnome-session/sessions/gnome-classic.session
 %dir %{_datadir}/gnome-shell/modes
 %{_datadir}/gnome-shell/modes/classic.json
@@ -332,10 +319,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.auto-move-windows.gschema.xml
 %{_datadir}/gnome-shell/extensions/auto-move-windows*
 
-%files -n %{ext_prefix}-default-min-max
-%defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/default-min-max*
-
 %files -n %{ext_prefix}-drive-menu
 %defattr(644,root,root,755)
 %{_datadir}/gnome-shell/extensions/drive-menu*
@@ -352,10 +335,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %{ext_prefix}-places-menu
 %defattr(644,root,root,755)
 %{_datadir}/gnome-shell/extensions/places-menu*
-
-%files -n %{ext_prefix}-static-workspaces
-%defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/static-workspaces*
 
 %files -n %{ext_prefix}-systemMonitor
 %defattr(644,root,root,755)
