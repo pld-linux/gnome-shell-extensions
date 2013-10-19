@@ -1,21 +1,24 @@
-%define		major_version		3.8
+%define		major_version		3.10
 # Minimum GNOME Shell version supported
-%define		global min_gs_version	%{major_version}.3
+%define		global min_gs_version	%{major_version}.1
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Name:		gnome-shell-extensions
-Version:	%{major_version}.3.1
+Version:	%{major_version}.1
 Release:	1
 Group:		X11/Applications
 # The entire source code is GPLv2+ except lib/convenience.js which is BSD
 License:	GPLv2+ and BSD
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.10/%{name}-%{version}.tar.xz
+# Source0-md5:	cbf1c0eab389557ef2ab1f0454e4cef4
 URL:		http://live.gnome.org/GnomeShell/Extensions
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.8/%{name}-%{version}.tar.xz
-# Source0-md5:	69ea6492fe1c4f1245f1e62a73fe7ec9
+BuildRequires:	autoconf >= 2.63
+BuildRequires:	automake >= 1:1.10
 BuildRequires:	gnome-common
 BuildRequires:	gnome-desktop-devel
 BuildRequires:	intltool
-BuildRequires:	libgtop-devel
+BuildRequires:	libgtop-devel >= 2.28.3
+BuildRequires:	pkgconfig >= 1:0.22
 Requires:	gnome-shell >= %{min_gs_version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -27,7 +30,6 @@ additional and optional functionality to GNOME Shell.
 
 Enabled extensions:
   - alternate-tab
-  - alternative-status-menu
   - apps-menu
   - auto-move-windows
   - drive-menu
@@ -39,17 +41,18 @@ Enabled extensions:
   - window-list
   - windowsNavigator
   - workspace-indicator
-  - xrandr-indicator
 
 %package common
 Summary:	Files common to GNOME Shell Extensions
 License:	GPL v2+
 Group:		X11/Applications
 Requires:	gnome-shell >= %{min_gs_version}
+Obsoletes:	gnome-shell-extension-alternative-status-menu < 3.10.1
 Obsoletes:	gnome-shell-extension-default-min-max < 3.8.3.1
 Obsoletes:	gnome-shell-extension-dock < 3.8.0
 Obsoletes:	gnome-shell-extension-gajim < 3.8.0
 Obsoletes:	gnome-shell-extension-static-workspaces < 3.8.3.1
+Obsoletes:	gnome-shell-extension-xrandr-indicator < 3.10.1
 
 %description common
 GNOME Shell Extensions is a collection of extensions providing
@@ -66,7 +69,7 @@ Requires:	%{ext_prefix}-apps-menu = %{version}-%{release}
 Requires:	%{ext_prefix}-launch-new-instance = %{version}-%{release}
 Requires:	%{ext_prefix}-places-menu = %{version}-%{release}
 Requires:	%{ext_prefix}-window-list = %{version}-%{release}
-Requires:	gnome-session >= 1:3.8.0
+Requires:	gnome-session >= 1:3.10.0
 
 %description -n gnome-classic-session
 This package contains the required components for the GNOME Shell
@@ -82,17 +85,6 @@ Requires:	%{name}-common = %{version}-%{release}
 Lets you use classic Alt+Tab (window-based instead of app-based) in
 GNOME Shell. GNOME Shell groups multiple instances of the same
 application together. This extension disables grouping.
-
-%package -n %{ext_prefix}-alternative-status-menu
-Summary:	For those who want a power off item visible at all the time
-License:	GPL v2+
-Group:		X11/Applications
-Requires:	%{name}-common = %{version}-%{release}
-
-%description -n %{ext_prefix}-alternative-status-menu
-For those who want a power off item visible at all the time, replaces
-GNOME Shell status menu with one featuring separate Suspend and Power
-Off. Adds the ability to hibernate as well.
 
 %package -n %{ext_prefix}-apps-menu
 Summary:	Application menu for GNOME Shell
@@ -209,16 +201,6 @@ Requires:	%{name}-common = %{version}-%{release}
 Put an indicator on the panel signaling in which workspace you are,
 and give you the possibility of switching to another one.
 
-%package -n %{ext_prefix}-xrandr-indicator
-Summary:	Monitor status indicator
-License:	GPL v2+
-Group:		X11/Applications
-Requires:	%{name}-common = %{version}-%{release}
-
-%description  -n %{ext_prefix}-xrandr-indicator
-This extension adds a systems status menu for rotating monitors
-(overrides what is currently provided by gnome-settings-daemon.
-
 %prep
 %setup -q
 
@@ -253,12 +235,6 @@ rm -rf $RPM_BUILD_ROOT
 %glib_compile_schemas
 
 %postun -n gnome-classic-session
-%glib_compile_schemas
-
-%post -n %{ext_prefix}-alternative-status-menu
-%glib_compile_schemas
-
-%postun -n %{ext_prefix}-alternative-status-menu
 %glib_compile_schemas
 
 %post -n %{ext_prefix}-auto-move-windows
@@ -304,11 +280,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %{ext_prefix}-alternate-tab
 %defattr(644,root,root,755)
 %{_datadir}/gnome-shell/extensions/alternate-tab*
-
-%files -n %{ext_prefix}-alternative-status-menu
-%defattr(644,root,root,755)
-%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.alternative-status-menu.gschema.xml
-%{_datadir}/gnome-shell/extensions/alternative-status-menu*
 
 %files -n %{ext_prefix}-apps-menu
 %defattr(644,root,root,755)
@@ -357,7 +328,3 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %{ext_prefix}-workspace-indicator
 %defattr(644,root,root,755)
 %{_datadir}/gnome-shell/extensions/workspace-indicator*
-
-%files -n %{ext_prefix}-xrandr-indicator
-%defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/xrandr-indicator*
