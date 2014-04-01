@@ -1,16 +1,16 @@
-%define		major_version		3.10
+%define		major_version		3.12
 # Minimum GNOME Shell version supported
-%define		global min_gs_version	%{major_version}.1
+%define		global min_gs_version	%{major_version}.0
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Name:		gnome-shell-extensions
-Version:	%{major_version}.1
+Version:	%{major_version}.0
 Release:	1
 Group:		X11/Applications
 # The entire source code is GPLv2+ except lib/convenience.js which is BSD
 License:	GPLv2+ and BSD
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.10/%{name}-%{version}.tar.xz
-# Source0-md5:	cbf1c0eab389557ef2ab1f0454e4cef4
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.12/%{name}-%{version}.tar.xz
+# Source0-md5:	e8eb9b66352c0810c633b1689d7c04d8
 URL:		http://live.gnome.org/GnomeShell/Extensions
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.10
@@ -69,7 +69,7 @@ Requires:	%{ext_prefix}-apps-menu = %{version}-%{release}
 Requires:	%{ext_prefix}-launch-new-instance = %{version}-%{release}
 Requires:	%{ext_prefix}-places-menu = %{version}-%{release}
 Requires:	%{ext_prefix}-window-list = %{version}-%{release}
-Requires:	gnome-session >= 1:3.10.0
+Requires:	gnome-session >= 1:3.12.0
 
 %description -n gnome-classic-session
 This package contains the required components for the GNOME Shell
