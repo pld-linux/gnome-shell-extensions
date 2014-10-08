@@ -1,16 +1,16 @@
-%define		major_version		3.12
+%define		major_version		3.14
 # Minimum GNOME Shell version supported
 %define		global min_gs_version	%{major_version}.0
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Name:		gnome-shell-extensions
-Version:	%{major_version}.2
+Version:	%{major_version}.0
 Release:	1
 Group:		X11/Applications
 # The entire source code is GPLv2+ except lib/convenience.js which is BSD
 License:	GPLv2+ and BSD
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.12/%{name}-%{version}.tar.xz
-# Source0-md5:	4b3ba9920840c3ac63ce6934a7a415f6
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.14/%{name}-%{version}.tar.xz
+# Source0-md5:	9ba3cb7f22185365108c69074577a975
 URL:		http://live.gnome.org/GnomeShell/Extensions
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.10
@@ -36,6 +36,7 @@ Enabled extensions:
   - launch-new-instance
   - native-window-placement
   - places-menu
+  - screenshot-window-sizer
   - systemMonitor
   - user-theme
   - window-list
@@ -69,7 +70,7 @@ Requires:	%{ext_prefix}-apps-menu = %{version}-%{release}
 Requires:	%{ext_prefix}-launch-new-instance = %{version}-%{release}
 Requires:	%{ext_prefix}-places-menu = %{version}-%{release}
 Requires:	%{ext_prefix}-window-list = %{version}-%{release}
-Requires:	gnome-session >= 1:3.12.0
+Requires:	gnome-session >= 1:3.14.0
 
 %description -n gnome-classic-session
 This package contains the required components for the GNOME Shell
@@ -147,6 +148,16 @@ Requires:	%{name}-common = %{version}-%{release}
 %description -n %{ext_prefix}-places-menu
 Adds a menu in the system status area that resembles the Places menu
 from GNOME 2.x
+
+%package -n %{ext_prefix}-screenshot-window-sizer
+Summary:	Screenshot window sizer for GNOME Shell
+License:	GPL v2+
+Group:		X11/Applications
+Requires:	%{name}-common = %{version}-%{release}
+
+%description -n %{ext_prefix}-screenshot-window-sizer
+This GNOME Shell extension allows to easily resize windows for GNOME
+Software screenshots.
 
 %package -n %{ext_prefix}-systemMonitor
 Summary:	Monitor your system status
@@ -249,6 +260,12 @@ rm -rf $RPM_BUILD_ROOT
 %postun -n %{ext_prefix}-native-window-placement
 %glib_compile_schemas
 
+%post -n %{ext_prefix}-screenshot-window-sizer
+%glib_compile_schemas
+
+%postun -n %{ext_prefix}-screenshot-window-sizer
+%glib_compile_schemas
+
 %post -n %{ext_prefix}-user-theme
 %glib_compile_schemas
 
@@ -306,6 +323,11 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %{ext_prefix}-places-menu
 %defattr(644,root,root,755)
 %{_datadir}/gnome-shell/extensions/places-menu*
+
+%files -n %{ext_prefix}-screenshot-window-sizer
+%defattr(644,root,root,755)
+%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.screenshot-window-sizer.gschema.xml
+%{_datadir}/gnome-shell/extensions/screenshot-window-sizer*
 
 %files -n %{ext_prefix}-systemMonitor
 %defattr(644,root,root,755)
