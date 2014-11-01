@@ -1,16 +1,16 @@
 %define		major_version		3.14
 # Minimum GNOME Shell version supported
-%define		global min_gs_version	%{major_version}.0
+%define		global min_gs_version	%{major_version}.1
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Name:		gnome-shell-extensions
-Version:	%{major_version}.0
+Version:	%{major_version}.1
 Release:	1
 Group:		X11/Applications
 # The entire source code is GPLv2+ except lib/convenience.js which is BSD
 License:	GPLv2+ and BSD
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.14/%{name}-%{version}.tar.xz
-# Source0-md5:	9ba3cb7f22185365108c69074577a975
+# Source0-md5:	450ba17f6213728f20b4223cda113f2f
 URL:		http://live.gnome.org/GnomeShell/Extensions
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.10
