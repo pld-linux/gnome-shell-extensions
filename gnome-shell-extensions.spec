@@ -37,7 +37,6 @@ Enabled extensions:
   - native-window-placement
   - places-menu
   - screenshot-window-sizer
-  - systemMonitor
   - user-theme
   - window-list
   - windowsNavigator
@@ -54,6 +53,7 @@ Obsoletes:	gnome-shell-extension-dock < 3.8.0
 Obsoletes:	gnome-shell-extension-gajim < 3.8.0
 Obsoletes:	gnome-shell-extension-static-workspaces < 3.8.3.1
 Obsoletes:	gnome-shell-extension-xrandr-indicator < 3.10.1
+Obsoletes:	gnome-shell-extension-systemMonitor < 3.16.0
 
 %description common
 GNOME Shell Extensions is a collection of extensions providing
@@ -158,16 +158,6 @@ Requires:	%{name}-common = %{version}-%{release}
 %description -n %{ext_prefix}-screenshot-window-sizer
 This GNOME Shell extension allows to easily resize windows for GNOME
 Software screenshots.
-
-%package -n %{ext_prefix}-systemMonitor
-Summary:	Monitor your system status
-License:	GPL v2+
-Group:		X11/Applications
-Requires:	%{name}-common = %{version}-%{release}
-Requires:	libgtop
-
-%description -n %{ext_prefix}-systemMonitor
-Monitor your system status
 
 %package -n %{ext_prefix}-user-theme
 Summary:	Lets the user select a custom theme for the shell
@@ -285,13 +275,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n gnome-classic-session
 %defattr(644,root,root,755)
-%{_desktopdir}/gnome-shell-classic.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.classic-overrides.gschema.xml
 %{_datadir}/gnome-session/sessions/gnome-classic.session
 %dir %{_datadir}/gnome-shell/modes
 %{_datadir}/gnome-shell/modes/classic.json
 %{_datadir}/gnome-shell/theme/*.svg
 %{_datadir}/gnome-shell/theme/gnome-classic.css
+%{_datadir}/gnome-shell/theme/gnome-classic-high-contrast.css
 %{_datadir}/xsessions/gnome-classic.desktop
 
 %files -n %{ext_prefix}-alternate-tab
@@ -328,10 +318,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.screenshot-window-sizer.gschema.xml
 %{_datadir}/gnome-shell/extensions/screenshot-window-sizer*
-
-%files -n %{ext_prefix}-systemMonitor
-%defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/systemMonitor*
 
 %files -n %{ext_prefix}-user-theme
 %defattr(644,root,root,755)
