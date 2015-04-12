@@ -279,6 +279,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gnome-session/sessions/gnome-classic.session
 %dir %{_datadir}/gnome-shell/modes
 %{_datadir}/gnome-shell/modes/classic.json
+%dir %{_datadir}/gnome-shell/theme
 %{_datadir}/gnome-shell/theme/*.svg
 %{_datadir}/gnome-shell/theme/gnome-classic.css
 %{_datadir}/gnome-shell/theme/gnome-classic-high-contrast.css
