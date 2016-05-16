@@ -4,13 +4,13 @@
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Name:		gnome-shell-extensions
-Version:	%{major_version}.0
+Version:	%{major_version}.1
 Release:	1
 Group:		X11/Applications
 # The entire source code is GPLv2+ except lib/convenience.js which is BSD
 License:	GPLv2+ and BSD
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.20/%{name}-%{version}.tar.xz
-# Source0-md5:	4c330a1365a1975569ac804bda1650d1
+# Source0-md5:	bbb30cdee09102362611f16d0617062b
 URL:		http://live.gnome.org/GnomeShell/Extensions
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.10
