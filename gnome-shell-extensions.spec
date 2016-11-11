@@ -1,22 +1,21 @@
-%define		major_version		3.20
+%define		major_version		3.22
 # Minimum GNOME Shell version supported
 %define		global min_gs_version	%{major_version}.0
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Name:		gnome-shell-extensions
-Version:	%{major_version}.1
+Version:	%{major_version}.2
 Release:	1
 Group:		X11/Applications
 # The entire source code is GPLv2+ except lib/convenience.js which is BSD
 License:	GPLv2+ and BSD
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.20/%{name}-%{version}.tar.xz
-# Source0-md5:	bbb30cdee09102362611f16d0617062b
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.22/%{name}-%{version}.tar.xz
+# Source0-md5:	294cdda1c18bf960e6e3ebd7484a4f48
 URL:		http://live.gnome.org/GnomeShell/Extensions
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.10
 BuildRequires:	gnome-common
 BuildRequires:	gnome-desktop-devel
-BuildRequires:	intltool
 BuildRequires:	libgtop-devel >= 2.28.3
 BuildRequires:	pkgconfig >= 1:0.22
 BuildRequires:	ruby-sass
@@ -207,8 +206,6 @@ and give you the possibility of switching to another one.
 %setup -q
 
 %build
-%{__glib_gettextize}
-%{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
