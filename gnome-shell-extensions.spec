@@ -1,25 +1,23 @@
-%define		major_version		3.24
-# Minimum GNOME Shell version supported
-%define		global min_gs_version	%{major_version}.0
+%define		gshell_ver	3.34.0
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
+Summary(pl.UTF-8):	Modyfikacje i rozszerzenia funkcjonalności i zachowania powłoki GNOME
 Name:		gnome-shell-extensions
-Version:	%{major_version}.1
+Version:	3.34.1
 Release:	1
 Group:		X11/Applications
-# The entire source code is GPLv2+ except lib/convenience.js which is BSD
-License:	GPLv2+ and BSD
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.24/%{name}-%{version}.tar.xz
-# Source0-md5:	8d2dc3c29dc670196cfbfe7d63526de5
-URL:		http://live.gnome.org/GnomeShell/Extensions
-BuildRequires:	autoconf >= 2.63
-BuildRequires:	automake >= 1:1.10
-BuildRequires:	gnome-common
-BuildRequires:	gnome-desktop-devel
-BuildRequires:	libgtop-devel >= 2.28.3
+License:	GPL v2+
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.34/%{name}-%{version}.tar.xz
+# Source0-md5:	09e64640bbf0e978171d581e2086a0c6
+URL:		https://wiki.gnome.org/Projects/GnomeShell/Extensions
+BuildRequires:	mozjs60
+BuildRequires:	meson >= 0.44.0
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.22
-BuildRequires:	ruby-sass
-Requires:	gnome-shell >= %{min_gs_version}
+BuildRequires:	sassc
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
+Requires:	gnome-shell >= %{gshell_ver}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		ext_prefix	gnome-shell-extension
@@ -29,25 +27,44 @@ GNOME Shell Extensions is a collection of extensions providing
 additional and optional functionality to GNOME Shell.
 
 Enabled extensions:
-  - alternate-tab
-  - apps-menu
-  - auto-move-windows
-  - drive-menu
-  - launch-new-instance
-  - native-window-placement
-  - places-menu
-  - screenshot-window-sizer
-  - user-theme
-  - window-list
-  - windowsNavigator
-  - workspace-indicator
+ - apps-menu
+ - auto-move-windows
+ - drive-menu
+ - horizontal-workspaces
+ - launch-new-instance
+ - native-window-placement
+ - places-menu
+ - screenshot-window-sizer
+ - user-theme
+ - window-list
+ - windowsNavigator
+ - workspace-indicator
+
+%description -l pl.UTF-8
+GNOME Shell Extensions to zbiór rozszerzeń zapewniających dodatkowe i
+opcjonalne funkcje powłoki GNOME.
+
+Dostępne rozszerzenia:
+ - apps-menu
+ - auto-move-windows
+ - drive-menu
+ - horizontal-workspaces
+ - launch-new-instance
+ - native-window-placement
+ - places-menu
+ - screenshot-window-sizer
+ - user-theme
+ - window-list
+ - windowsNavigator
+ - workspace-indicator
 
 %package common
 Summary:	Files common to GNOME Shell Extensions
-License:	GPL v2+
+Summary(pl.UTF-8):	Pliki wspólne rozszerzeń powłoki GNOME
 Group:		X11/Applications
-Requires:	gnome-shell >= %{min_gs_version}
+Requires:	gnome-shell >= %{gshell_ver}
 Obsoletes:	gnome-shell-extension-alternative-status-menu < 3.10.1
+Obsoletes:	gnome-shell-extension-alternate-tab < 3.32.0
 Obsoletes:	gnome-shell-extension-default-min-max < 3.8.3.1
 Obsoletes:	gnome-shell-extension-dock < 3.8.0
 Obsoletes:	gnome-shell-extension-gajim < 3.8.0
@@ -60,12 +77,16 @@ GNOME Shell Extensions is a collection of extensions providing
 additional and optional functionality to GNOME Shell. Common files and
 directories needed by extensions are provided here.
 
+%description common -l pl.UTF-8
+GNOME Shell Extensions to zbiór rozszerzeń zapewniających dodatkowe i
+opcjonalne funkcje powłoki GNOME. Ten pakiet zawiera wspólne pliki i
+katalogi wymagane przez rozszerzenia.
+
 %package -n gnome-classic-session
 Summary:	GNOME "classic" mode session
-License:	GPL v2+
+Summary(pl.UTF-8):	Sesja trybu "klasycznego" GNOME
 Group:		X11/Applications
 Requires(post,postun):	glib2 >= 1:2.26.0
-Requires:	%{ext_prefix}-alternate-tab = %{version}-%{release}
 Requires:	%{ext_prefix}-apps-menu = %{version}-%{release}
 Requires:	%{ext_prefix}-launch-new-instance = %{version}-%{release}
 Requires:	%{ext_prefix}-places-menu = %{version}-%{release}
@@ -76,29 +97,26 @@ Requires:	gnome-session >= 1:3.14.0
 This package contains the required components for the GNOME Shell
 "classic" mode, which aims to provide a GNOME 2-like user interface.
 
-%package -n %{ext_prefix}-alternate-tab
-Summary:	Classic Alt+Tab behavior. Window based instead of app based
-License:	GPL v2+
-Group:		X11/Applications
-Requires:	%{name}-common = %{version}-%{release}
-
-%description -n %{ext_prefix}-alternate-tab
-Lets you use classic Alt+Tab (window-based instead of app-based) in
-GNOME Shell. GNOME Shell groups multiple instances of the same
-application together. This extension disables grouping.
+%description -n gnome-classic-session -l pl.UTF-8
+Ten pakiet zawiera komponenty wymagane dla trybu "klasycznego" powłoki
+GNOME, mającego na celu udostępnienie interfejsu użytkownika w stylu
+GNOME 2.
 
 %package -n %{ext_prefix}-apps-menu
 Summary:	Application menu for GNOME Shell
-License:	GPL v2+
+Summary(pl.UTF-8):	Menu aplikacji dla powłoki GNOME
 Group:		X11/Applications
 Requires:	%{name}-common = %{version}-%{release}
 
 %description  -n %{ext_prefix}-apps-menu
 Add a GNOME 2.x style menu for applications.
 
+%description  -n %{ext_prefix}-apps-menu -l pl.UTF-8
+To rozszerzenie dodaje menu w stylu GNOME 2.x dla aplikacji.
+
 %package -n %{ext_prefix}-auto-move-windows
 Summary:	Assign specific workspaces to applications
-License:	GPL v2+
+Summary(pl.UTF-8):	Przypisywanie konkretnych pulpitów do aplikacji
 Group:		X11/Applications
 Requires:	%{name}-common = %{version}-%{release}
 
@@ -107,9 +125,14 @@ Lets you manage your workspaces more easily, assigning a specific
 workspace to each application as soon as it creates a window, in a
 manner configurable with a GSettings key.
 
+%description -n %{ext_prefix}-auto-move-windows -l pl.UTF-8
+To rozszerzenie pozwala łatwiej zarządzać pulpitami, przypisując
+określony pulpit do każdej aplikacji zaraz po utworzeniu okna, w
+sposób konfigurowany kluczem GSettings.
+
 %package -n %{ext_prefix}-drive-menu
 Summary:	Disk device manager in the system status area
-License:	GPL v2+
+Summary(pl.UTF-8):	Zarządca urządzeń dyskowych w obszarze stanu systemu
 Group:		X11/Applications
 Requires:	%{name}-common = %{version}-%{release}
 
@@ -117,9 +140,26 @@ Requires:	%{name}-common = %{version}-%{release}
 Adds a menu in the system status area that tracks removable disk
 devices attached and offers to browse them and eject/unmount them.
 
+%description -n %{ext_prefix}-drive-menu -l pl.UTF-8
+To rozszerzenie dodaje w obszarze stanu systemu menu śledzące
+podłączone odłączalne urządzenia dyskowe i pozwalające wysuwać lub
+odmontowywać je.
+
+%package -n %{ext_prefix}-horizontal-workspaces
+Summary:	Use a horizontal workspace layout
+Summary(pl.UTF-8):	Użycie poziomego układu pulpitów
+Group:		X11/Applications
+Requires:	%{name}-common = %{version}-%{release}
+
+%description -n %{ext_prefix}-horizontal-workspaces
+This extension allows to use a horizontal workspace layout.
+
+%description -n %{ext_prefix}-horizontal-workspaces -l pl.UTF-8
+To rozszerzenie pozwala na użycie poziomego układu pulpitów.
+
 %package -n %{ext_prefix}-launch-new-instance
 Summary:	Always launch a new application instance for GNOME Shell
-License:	GPL v2+
+Summary(pl.UTF-8):	Uruchamianie zawsze nowej instancji aplikacji w powłoce GNOME
 Group:		X11/Applications
 Requires:	%{name}-common = %{version}-%{release}
 
@@ -127,9 +167,14 @@ Requires:	%{name}-common = %{version}-%{release}
 This GNOME Shell extension modifies the behavior of clicking in the
 dash and app launcher to always launch a new application instance.
 
+%description  -n %{ext_prefix}-launch-new-instance -l pl.UTF-8
+To rozszerzenie powłoki GNOME modyfikuje zachowanie kliknięcia w
+myślnik oraz uruchamianiu aplikacji, aby zawsze uruchamiało nową
+instancję aplikacji.
+
 %package -n %{ext_prefix}-native-window-placement
 Summary:	Arrange windows in overview in a more native way
-License:	GPL v2+
+Summary(pl.UTF-8):	Układanie okien w podglądzie w bardziej natywny sposób
 Group:		X11/Applications
 Requires:	%{name}-common = %{version}-%{release}
 
@@ -139,19 +184,28 @@ thumbnails in the overview that more closely reflects the positions
 and relative sizes of the actual windows, instead of using a fixed
 grid.
 
+%description -n %{ext_prefix}-native-window-placement -l pl.UTF-8
+To rozszerzenie wprowadza pewnien algorytm (zaczerpnięty z KDE)
+układania miniatur w podglądzie, bliżej odzwierciedlający położenia i
+rozmiary względne właściwych okien, zamiast używania stałej siatki.
+
 %package -n %{ext_prefix}-places-menu
 Summary:	Places menu indicator in the system status area
-License:	GPL v2+
+Summary(pl.UTF-8):	Menu Miejsca w obszarze stanu systemu
 Group:		X11/Applications
 Requires:	%{name}-common = %{version}-%{release}
 
 %description -n %{ext_prefix}-places-menu
 Adds a menu in the system status area that resembles the Places menu
-from GNOME 2.x
+from GNOME 2.x.
+
+%description -n %{ext_prefix}-places-menu -l pl.UTF-8
+To rozszerzenie dodaje w obszarze stanu systemu menu, przypominające
+menu Miejsca z GNOME 2.x.
 
 %package -n %{ext_prefix}-screenshot-window-sizer
 Summary:	Screenshot window sizer for GNOME Shell
-License:	GPL v2+
+Summary(pl.UTF-8):	Ustalanie rozmiaru okien w powłoce GNOME przy zrzutach ekranu
 Group:		X11/Applications
 Requires:	%{name}-common = %{version}-%{release}
 
@@ -159,20 +213,29 @@ Requires:	%{name}-common = %{version}-%{release}
 This GNOME Shell extension allows to easily resize windows for GNOME
 Software screenshots.
 
+%description -n %{ext_prefix}-screenshot-window-sizer -l pl.UTF-8
+To rozszerzenie powłoki GNOME pozwala łatwo zmieniać rozmiary okien na
+potrzeby zrzutów ekranu GNOME Software.
+
 %package -n %{ext_prefix}-user-theme
-Summary:	Lets the user select a custom theme for the shell
-License:	GPL v2+
+Summary:	Let the user select a custom theme for the shell
+Summary(pl.UTF-8):	Wybór własnego motywu powłoki przez użytkownika
 Group:		X11/Applications
 Requires:	%{name}-common = %{version}-%{release}
 
 %description -n %{ext_prefix}-user-theme
 Lets the user select a custom theme for the Gnome shell. It will allow
 you to apply a style from
-/.themes/[themeName]/gnome-shell/gnome-shell.css
+<~/.themes/[themeName]/gnome-shell/gnome-shell.css>.
+
+%description -n %{ext_prefix}-user-theme -l pl.UTF-8
+To rozszerzenie pozwala użytkownikowi wybrać własny motyw powłoki
+GNOME. Pozwala zaaplikować styl z pliku
+<~/.themes/[nazwaMotywu]/gnome-shell/gnome-shell.css>.
 
 %package -n %{ext_prefix}-window-list
 Summary:	Display a window list at the bottom of the screen in GNOME Shell
-License:	GPL v2+
+Summary(pl.UTF-8):	Wyświetlanie listy okien na dole ekranu w powłoce GNOME
 Group:		X11/Applications
 Requires:	%{name}-common = %{version}-%{release}
 
@@ -180,21 +243,31 @@ Requires:	%{name}-common = %{version}-%{release}
 This GNOME Shell extension displays a window list at the bottom of the
 screen.
 
+%description -n %{ext_prefix}-window-list -l pl.UTF-8
+To rozszerzenie powłoki GNOME wyświetla listę okien na dole ekranu.
+
 %package -n %{ext_prefix}-windowsNavigator
 Summary:	Keyboard selection of windows and work-spaces in overlay mode
-License:	GPL v2+
+Summary(pl.UTF-8):	Wybór okien i pulpitów w trybie nakładkowym z poziomu klawiatury
 Group:		X11/Applications
 Requires:	%{name}-common = %{version}-%{release}
 
 %description -n %{ext_prefix}-windowsNavigator
 Allow keyboard selection of windows and work-spaces in overlay mode in
-GNOME Shell. Switch to overview mode (press the windows or alt+f1 key)
-and press the alt key to show numbers over windows. Press any number
-to switch to the corresponding window.
+GNOME Shell. Switch to overview mode (press the Win or Alt+F1 key) and
+press the Alt key to show numbers over windows. Press any number to
+switch to the corresponding window.
+
+%description -n %{ext_prefix}-windowsNavigator -l pl.UTF-8
+To rozszerzenie pozwala na wybieranie okien i pulpitów w trybie
+nakładkowym powłoki GNOME z poziomu klawiatury. Przełączenie na tryb
+podglądu (naciśnięcie klawisza Win lub Alt+F1) i naciśnięcie klawisa
+Alt wyświetla numery na oknach. Wpisanie liczby przełącza na
+odpowiednie okno.
 
 %package -n %{ext_prefix}-workspace-indicator
 Summary:	Workspace Indicator
-License:	GPL v2+
+Summary(pl.UTF-8):	Kontrolka pulpitów
 Group:		X11/Applications
 Requires:	%{name}-common = %{version}-%{release}
 
@@ -202,28 +275,28 @@ Requires:	%{name}-common = %{version}-%{release}
 Put an indicator on the panel signaling in which workspace you are,
 and give you the possibility of switching to another one.
 
+%description -n %{ext_prefix}-workspace-indicator -l pl.UTF-8
+To rozszerzenie umieszcza w panelu kontrolkę sygnalizującą aktualny
+pulpit i pozwalający na przełączenie na inny.
+
 %prep
 %setup -q
 
 %build
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__automake}
-%configure \
-	--enable-extensions="all"
+%meson build \
+	-Dclassic_mode=true \
+	-Dextension_set=all
 
-%{__make}
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%ninja_install -C build
 
 # Drop useless example extension
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/gnome-shell/extensions/example*
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.example.gschema.xml
+#%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/gnome-shell/extensions/example*
+#%{__rm} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.example.gschema.xml
 
 %find_lang %{name}
 
@@ -268,70 +341,71 @@ rm -rf $RPM_BUILD_ROOT
 
 %files common -f %{name}.lang
 %defattr(644,root,root,755)
-%doc COPYING NEWS README
+%doc NEWS README.md
 %dir %{_datadir}/gnome-shell/extensions
 
 %files -n gnome-classic-session
 %defattr(644,root,root,755)
-%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.classic-overrides.gschema.xml
+%{_datadir}/glib-2.0/schemas/00_org.gnome.shell.extensions.classic.gschema.override
 %{_datadir}/gnome-session/sessions/gnome-classic.session
 %dir %{_datadir}/gnome-shell/modes
 %{_datadir}/gnome-shell/modes/classic.json
 %dir %{_datadir}/gnome-shell/theme
-%{_datadir}/gnome-shell/theme/*.svg
+%{_datadir}/gnome-shell/theme/calendar-today.svg
+%{_datadir}/gnome-shell/theme/classic-*.svg
 %{_datadir}/gnome-shell/theme/gnome-classic.css
 %{_datadir}/gnome-shell/theme/gnome-classic-high-contrast.css
 %{_datadir}/xsessions/gnome-classic.desktop
 
-%files -n %{ext_prefix}-alternate-tab
-%defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/alternate-tab*
-
 %files -n %{ext_prefix}-apps-menu
 %defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/apps-menu*
+%{_datadir}/gnome-shell/extensions/apps-menu@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-auto-move-windows
 %defattr(644,root,root,755)
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.auto-move-windows.gschema.xml
-%{_datadir}/gnome-shell/extensions/auto-move-windows*
+%{_datadir}/gnome-shell/extensions/auto-move-windows@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-drive-menu
 %defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/drive-menu*
+%{_datadir}/gnome-shell/extensions/drive-menu@gnome-shell-extensions.gcampax.github.com
+
+%files -n %{ext_prefix}-horizontal-workspaces
+%defattr(644,root,root,755)
+%{_datadir}/gnome-shell/extensions/horizontal-workspaces@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-launch-new-instance
 %defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/launch-new-instance*
+%{_datadir}/gnome-shell/extensions/launch-new-instance@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-native-window-placement
 %defattr(644,root,root,755)
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.native-window-placement.gschema.xml
-%{_datadir}/gnome-shell/extensions/native-window-placement*
+%{_datadir}/gnome-shell/extensions/native-window-placement@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-places-menu
 %defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/places-menu*
+%{_datadir}/gnome-shell/extensions/places-menu@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-screenshot-window-sizer
 %defattr(644,root,root,755)
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.screenshot-window-sizer.gschema.xml
-%{_datadir}/gnome-shell/extensions/screenshot-window-sizer*
+%{_datadir}/gnome-shell/extensions/screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-user-theme
 %defattr(644,root,root,755)
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.user-theme.gschema.xml
-%{_datadir}/gnome-shell/extensions/user-theme*
+%{_datadir}/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-window-list
 %defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/window-list*
+%{_datadir}/gnome-shell/extensions/window-list@gnome-shell-extensions.gcampax.github.com
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.window-list.gschema.xml
 
 %files -n %{ext_prefix}-windowsNavigator
 %defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/windowsNavigator*
+%{_datadir}/gnome-shell/extensions/windowsNavigator@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-workspace-indicator
 %defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/workspace-indicator*
+%{_datadir}/gnome-shell/extensions/workspace-indicator@gnome-shell-extensions.gcampax.github.com
