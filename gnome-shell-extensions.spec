@@ -3,12 +3,12 @@
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Summary(pl.UTF-8):	Modyfikacje i rozszerzenia funkcjonalności i zachowania powłoki GNOME
 Name:		gnome-shell-extensions
-Version:	3.34.1
+Version:	3.34.2
 Release:	1
 Group:		X11/Applications
 License:	GPL v2+
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.34/%{name}-%{version}.tar.xz
-# Source0-md5:	09e64640bbf0e978171d581e2086a0c6
+# Source0-md5:	d3a69cde0c3e3dc0b0c243af026c4b7a
 URL:		https://wiki.gnome.org/Projects/GnomeShell/Extensions
 BuildRequires:	mozjs60
 BuildRequires:	meson >= 0.44.0
