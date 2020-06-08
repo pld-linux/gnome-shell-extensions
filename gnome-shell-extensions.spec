@@ -1,20 +1,21 @@
-%define		gshell_ver	3.34.0
+%define		gshell_ver	3.36.0
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Summary(pl.UTF-8):	Modyfikacje i rozszerzenia funkcjonalności i zachowania powłoki GNOME
 Name:		gnome-shell-extensions
-Version:	3.34.2
+Version:	3.36.2
 Release:	1
 Group:		X11/Applications
 License:	GPL v2+
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.34/%{name}-%{version}.tar.xz
-# Source0-md5:	d3a69cde0c3e3dc0b0c243af026c4b7a
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.36/%{name}-%{version}.tar.xz
+# Source0-md5:	2ac47e148aee43bf5286426e782ffdaf
 URL:		https://wiki.gnome.org/Projects/GnomeShell/Extensions
-BuildRequires:	mozjs60
+BuildRequires:	mozjs68 >= 68
 BuildRequires:	meson >= 0.44.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.22
 BuildRequires:	sassc
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	gnome-shell >= %{gshell_ver}
