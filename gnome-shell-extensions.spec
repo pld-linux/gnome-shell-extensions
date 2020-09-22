@@ -1,16 +1,15 @@
-%define		gshell_ver	3.36.0
+%define		gshell_ver	3.38.0
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Summary(pl.UTF-8):	Modyfikacje i rozszerzenia funkcjonalności i zachowania powłoki GNOME
 Name:		gnome-shell-extensions
-Version:	3.36.3
+Version:	3.38.0
 Release:	1
 Group:		X11/Applications
 License:	GPL v2+
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.36/%{name}-%{version}.tar.xz
-# Source0-md5:	b7771b4851fc3f16dcada5e16ceb53ab
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.38/%{name}-%{version}.tar.xz
+# Source0-md5:	6d348bc6bc28efe54c509c095cfe1fc2
 URL:		https://wiki.gnome.org/Projects/GnomeShell/Extensions
-BuildRequires:	mozjs68 >= 68
 BuildRequires:	meson >= 0.44.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.22
@@ -348,7 +347,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n gnome-classic-session
 %defattr(644,root,root,755)
 %{_datadir}/glib-2.0/schemas/00_org.gnome.shell.extensions.classic.gschema.override
-%{_datadir}/gnome-session/sessions/gnome-classic.session
 %dir %{_datadir}/gnome-shell/modes
 %{_datadir}/gnome-shell/modes/classic.json
 %dir %{_datadir}/gnome-shell/theme
