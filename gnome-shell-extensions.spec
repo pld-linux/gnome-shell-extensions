@@ -1,14 +1,14 @@
-%define		gshell_ver	3.38.0
+%define		gshell_ver	40.0
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Summary(pl.UTF-8):	Modyfikacje i rozszerzenia funkcjonalności i zachowania powłoki GNOME
 Name:		gnome-shell-extensions
-Version:	3.38.2
+Version:	40.0
 Release:	1
 Group:		X11/Applications
 License:	GPL v2+
-Source0:	https://download.gnome.org/sources/gnome-shell-extensions/3.38/%{name}-%{version}.tar.xz
-# Source0-md5:	527017400c2a22748f97f0603f070dda
+Source0:	https://download.gnome.org/sources/gnome-shell-extensions/40/%{name}-%{version}.tar.xz
+# Source0-md5:	1b53635d2f6bcb07e7008032313e3e8a
 URL:		https://wiki.gnome.org/Projects/GnomeShell/Extensions
 BuildRequires:	meson >= 0.44.0
 BuildRequires:	ninja >= 1.5
@@ -18,6 +18,7 @@ BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	gnome-shell >= %{gshell_ver}
+BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		ext_prefix	gnome-shell-extension
@@ -30,7 +31,6 @@ Enabled extensions:
  - apps-menu
  - auto-move-windows
  - drive-menu
- - horizontal-workspaces
  - launch-new-instance
  - native-window-placement
  - places-menu
@@ -48,7 +48,6 @@ Dostępne rozszerzenia:
  - apps-menu
  - auto-move-windows
  - drive-menu
- - horizontal-workspaces
  - launch-new-instance
  - native-window-placement
  - places-menu
@@ -68,6 +67,7 @@ Obsoletes:	gnome-shell-extension-alternate-tab < 3.32.0
 Obsoletes:	gnome-shell-extension-default-min-max < 3.8.3.1
 Obsoletes:	gnome-shell-extension-dock < 3.8.0
 Obsoletes:	gnome-shell-extension-gajim < 3.8.0
+Obsoletes:	gnome-shell-extension-horizontal-workspaces < 40.0
 Obsoletes:	gnome-shell-extension-static-workspaces < 3.8.3.1
 Obsoletes:	gnome-shell-extension-xrandr-indicator < 3.10.1
 Obsoletes:	gnome-shell-extension-systemMonitor < 3.16.0
@@ -144,18 +144,6 @@ devices attached and offers to browse them and eject/unmount them.
 To rozszerzenie dodaje w obszarze stanu systemu menu śledzące
 podłączone odłączalne urządzenia dyskowe i pozwalające wysuwać lub
 odmontowywać je.
-
-%package -n %{ext_prefix}-horizontal-workspaces
-Summary:	Use a horizontal workspace layout
-Summary(pl.UTF-8):	Użycie poziomego układu pulpitów
-Group:		X11/Applications
-Requires:	%{name}-common = %{version}-%{release}
-
-%description -n %{ext_prefix}-horizontal-workspaces
-This extension allows to use a horizontal workspace layout.
-
-%description -n %{ext_prefix}-horizontal-workspaces -l pl.UTF-8
-To rozszerzenie pozwala na użycie poziomego układu pulpitów.
 
 %package -n %{ext_prefix}-launch-new-instance
 Summary:	Always launch a new application instance for GNOME Shell
@@ -368,10 +356,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %{ext_prefix}-drive-menu
 %defattr(644,root,root,755)
 %{_datadir}/gnome-shell/extensions/drive-menu@gnome-shell-extensions.gcampax.github.com
-
-%files -n %{ext_prefix}-horizontal-workspaces
-%defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/horizontal-workspaces@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-launch-new-instance
 %defattr(644,root,root,755)
