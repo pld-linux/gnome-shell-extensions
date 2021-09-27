@@ -1,16 +1,16 @@
-%define		gshell_ver	40.4
+%define		gshell_ver	41.0
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Summary(pl.UTF-8):	Modyfikacje i rozszerzenia funkcjonalności i zachowania powłoki GNOME
 Name:		gnome-shell-extensions
-Version:	40.4
+Version:	41.0
 Release:	1
 Group:		X11/Applications
 License:	GPL v2+
-Source0:	https://download.gnome.org/sources/gnome-shell-extensions/40/%{name}-%{version}.tar.xz
-# Source0-md5:	25a9bd6a27a0fb34f31e256e842058ca
+Source0:	https://download.gnome.org/sources/gnome-shell-extensions/41/%{name}-%{version}.tar.xz
+# Source0-md5:	2a462dcf494713655379c01c3f55bee7
 URL:		https://wiki.gnome.org/Projects/GnomeShell/Extensions
-BuildRequires:	meson >= 0.44.0
+BuildRequires:	meson >= 0.53.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.22
 BuildRequires:	sassc
@@ -282,10 +282,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %ninja_install -C build
 
-# Drop useless example extension
-#%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/gnome-shell/extensions/example*
-#%{__rm} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.example.gschema.xml
-
 %find_lang %{name}
 
 %clean
@@ -295,6 +291,12 @@ rm -rf $RPM_BUILD_ROOT
 %glib_compile_schemas
 
 %postun -n gnome-classic-session
+%glib_compile_schemas
+
+%post -n %{ext_prefix}-apps-menu
+%glib_compile_schemas
+
+%postun -n %{ext_prefix}-apps-menu
 %glib_compile_schemas
 
 %post -n %{ext_prefix}-auto-move-windows
@@ -346,6 +348,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{ext_prefix}-apps-menu
 %defattr(644,root,root,755)
+%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.apps-menu.gschema.xml
 %{_datadir}/gnome-shell/extensions/apps-menu@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-auto-move-windows
