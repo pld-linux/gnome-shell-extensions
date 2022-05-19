@@ -1,14 +1,14 @@
-%define		gshell_ver	41.0
+%define		gshell_ver	42.0
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Summary(pl.UTF-8):	Modyfikacje i rozszerzenia funkcjonalności i zachowania powłoki GNOME
 Name:		gnome-shell-extensions
-Version:	41.2
+Version:	42.1
 Release:	1
 Group:		X11/Applications
 License:	GPL v2+
-Source0:	https://download.gnome.org/sources/gnome-shell-extensions/41/%{name}-%{version}.tar.xz
-# Source0-md5:	9178c6aa39e2ba5471acf895a0825ad9
+Source0:	https://download.gnome.org/sources/gnome-shell-extensions/42/%{name}-%{version}.tar.xz
+# Source0-md5:	a048b352b38a508e2c14a5ba7bcb26ce
 URL:		https://wiki.gnome.org/Projects/GnomeShell/Extensions
 BuildRequires:	meson >= 0.53.0
 BuildRequires:	ninja >= 1.5
@@ -340,11 +340,13 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/gnome-shell/modes
 %{_datadir}/gnome-shell/modes/classic.json
 %dir %{_datadir}/gnome-shell/theme
-%{_datadir}/gnome-shell/theme/calendar-today.svg
 %{_datadir}/gnome-shell/theme/classic-*.svg
 %{_datadir}/gnome-shell/theme/gnome-classic.css
 %{_datadir}/gnome-shell/theme/gnome-classic-high-contrast.css
+%{_datadir}/wayland-sessions/gnome-classic.desktop
+%{_datadir}/wayland-sessions/gnome-classic-wayland.desktop
 %{_datadir}/xsessions/gnome-classic.desktop
+%{_datadir}/xsessions/gnome-classic-xorg.desktop
 
 %files -n %{ext_prefix}-apps-menu
 %defattr(644,root,root,755)
