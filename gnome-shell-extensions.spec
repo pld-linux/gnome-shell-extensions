@@ -1,14 +1,14 @@
-%define		gshell_ver	42.0
+%define		gshell_ver	43.0
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Summary(pl.UTF-8):	Modyfikacje i rozszerzenia funkcjonalności i zachowania powłoki GNOME
 Name:		gnome-shell-extensions
-Version:	42.3
+Version:	43.1
 Release:	1
 Group:		X11/Applications
 License:	GPL v2+
-Source0:	https://download.gnome.org/sources/gnome-shell-extensions/42/%{name}-%{version}.tar.xz
-# Source0-md5:	d2b8bd9588be36e8193117ed73e7620f
+Source0:	https://download.gnome.org/sources/gnome-shell-extensions/43/%{name}-%{version}.tar.xz
+# Source0-md5:	b6feeb8c79e4861d8f67b3b390960144
 URL:		https://wiki.gnome.org/Projects/GnomeShell/Extensions
 BuildRequires:	meson >= 0.53.0
 BuildRequires:	ninja >= 1.5
