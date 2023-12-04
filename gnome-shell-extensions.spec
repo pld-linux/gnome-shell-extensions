@@ -1,14 +1,14 @@
-%define		gshell_ver	44.0
+%define		gshell_ver	45.0
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Summary(pl.UTF-8):	Modyfikacje i rozszerzenia funkcjonalności i zachowania powłoki GNOME
 Name:		gnome-shell-extensions
-Version:	44.0
+Version:	45.2
 Release:	1
 Group:		X11/Applications
 License:	GPL v2+
-Source0:	https://download.gnome.org/sources/gnome-shell-extensions/44/%{name}-%{version}.tar.xz
-# Source0-md5:	74c9e268a7b3bf56841f1508519eee5f
+Source0:	https://download.gnome.org/sources/gnome-shell-extensions/45/%{name}-%{version}.tar.xz
+# Source0-md5:	99b4edcc52fa4dbe6783244d2314eea2
 URL:		https://wiki.gnome.org/Projects/GnomeShell/Extensions
 BuildRequires:	meson >= 0.58.0
 BuildRequires:	ninja >= 1.5
@@ -32,6 +32,7 @@ Enabled extensions:
  - auto-move-windows
  - drive-menu
  - launch-new-instance
+ - light-style
  - native-window-placement
  - places-menu
  - screenshot-window-sizer
@@ -49,6 +50,7 @@ Dostępne rozszerzenia:
  - auto-move-windows
  - drive-menu
  - launch-new-instance
+ - light-style
  - native-window-placement
  - places-menu
  - screenshot-window-sizer
@@ -89,6 +91,7 @@ Group:		X11/Applications
 Requires(post,postun):	glib2 >= 1:2.26.0
 Requires:	%{ext_prefix}-apps-menu = %{version}-%{release}
 Requires:	%{ext_prefix}-launch-new-instance = %{version}-%{release}
+Requires:	%{ext_prefix}-light-style = %{version}-%{release}
 Requires:	%{ext_prefix}-places-menu = %{version}-%{release}
 Requires:	%{ext_prefix}-window-list = %{version}-%{release}
 Requires:	gnome-session >= 1:3.14.0
@@ -159,6 +162,18 @@ dash and app launcher to always launch a new application instance.
 To rozszerzenie powłoki GNOME modyfikuje zachowanie kliknięcia w
 myślnik oraz uruchamianiu aplikacji, aby zawsze uruchamiało nową
 instancję aplikacji.
+
+%package -n %{ext_prefix}-light-style
+Summary:	Switch default to light style
+Summary(pl.UTF-8):	Przełączenie na domyślny styl jasny
+Group:		X11/Applications
+Requires:	%{name}-common = %{version}-%{release}
+
+%description  -n %{ext_prefix}-light-style
+Switch default to light style.
+
+%description  -n %{ext_prefix}-light-style -l pl.UTF-8
+Przełączenie na domyślny styl jasny.
 
 %package -n %{ext_prefix}-native-window-placement
 Summary:	Arrange windows in overview in a more native way
@@ -339,10 +354,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/glib-2.0/schemas/00_org.gnome.shell.extensions.classic.gschema.override
 %dir %{_datadir}/gnome-shell/modes
 %{_datadir}/gnome-shell/modes/classic.json
-%dir %{_datadir}/gnome-shell/theme
-%{_datadir}/gnome-shell/theme/classic-*.svg
-%{_datadir}/gnome-shell/theme/gnome-classic.css
-%{_datadir}/gnome-shell/theme/gnome-classic-high-contrast.css
 %{_datadir}/wayland-sessions/gnome-classic.desktop
 %{_datadir}/wayland-sessions/gnome-classic-wayland.desktop
 %{_datadir}/xsessions/gnome-classic.desktop
@@ -365,6 +376,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %{ext_prefix}-launch-new-instance
 %defattr(644,root,root,755)
 %{_datadir}/gnome-shell/extensions/launch-new-instance@gnome-shell-extensions.gcampax.github.com
+
+%files -n %{ext_prefix}-light-style
+%defattr(644,root,root,755)
+%{_datadir}/gnome-shell/extensions/light-style@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-native-window-placement
 %defattr(644,root,root,755)
