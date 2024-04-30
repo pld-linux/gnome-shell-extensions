@@ -1,14 +1,14 @@
-%define		gshell_ver	45.0
+%define		gshell_ver	46.0
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Summary(pl.UTF-8):	Modyfikacje i rozszerzenia funkcjonalności i zachowania powłoki GNOME
 Name:		gnome-shell-extensions
-Version:	45.2
+Version:	46.1
 Release:	1
 Group:		X11/Applications
 License:	GPL v2+
-Source0:	https://download.gnome.org/sources/gnome-shell-extensions/45/%{name}-%{version}.tar.xz
-# Source0-md5:	99b4edcc52fa4dbe6783244d2314eea2
+Source0:	https://download.gnome.org/sources/gnome-shell-extensions/46/%{name}-%{version}.tar.xz
+# Source0-md5:	acb8af32c832fabf613c08e833dd195b
 URL:		https://wiki.gnome.org/Projects/GnomeShell/Extensions
 BuildRequires:	meson >= 0.58.0
 BuildRequires:	ninja >= 1.5
@@ -17,7 +17,6 @@ BuildRequires:	sassc
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-Requires:	gnome-shell >= %{gshell_ver}
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -72,7 +71,6 @@ Obsoletes:	gnome-shell-extension-gajim < 3.8.0
 Obsoletes:	gnome-shell-extension-horizontal-workspaces < 40.0
 Obsoletes:	gnome-shell-extension-static-workspaces < 3.8.3.1
 Obsoletes:	gnome-shell-extension-xrandr-indicator < 3.10.1
-Obsoletes:	gnome-shell-extension-systemMonitor < 3.16.0
 
 %description common
 GNOME Shell Extensions is a collection of extensions providing
@@ -220,6 +218,19 @@ Software screenshots.
 To rozszerzenie powłoki GNOME pozwala łatwo zmieniać rozmiary okien na
 potrzeby zrzutów ekranu GNOME Software.
 
+%package -n %{ext_prefix}-system-monitor
+Summary:	Monitor system from the top bar
+Summary(pl.UTF-8):	Monitorowanie systemu z górnej belki
+Group:		X11/Applications
+Requires:	%{name}-common = %{version}-%{release}
+Obsoletes:	gnome-shell-extension-systemMonitor < 3.16.0
+
+%description -n %{ext_prefix}-system-monitor
+GNOME extension to monitor system from the top bar.
+
+%description -n %{ext_prefix}-system-monitor -l pl.UTF-8
+Rozszerzenie GNOME do monitorowania systemu z górnej belki.
+
 %package -n %{ext_prefix}-user-theme
 Summary:	Let the user select a custom theme for the shell
 Summary(pl.UTF-8):	Wybór własnego motywu powłoki przez użytkownika
@@ -332,6 +343,12 @@ rm -rf $RPM_BUILD_ROOT
 %postun -n %{ext_prefix}-screenshot-window-sizer
 %glib_compile_schemas
 
+%post -n %{ext_prefix}-system-monitor
+%glib_compile_schemas
+
+%postun -n %{ext_prefix}-system-monitor
+%glib_compile_schemas
+
 %post -n %{ext_prefix}-user-theme
 %glib_compile_schemas
 
@@ -394,6 +411,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.screenshot-window-sizer.gschema.xml
 %{_datadir}/gnome-shell/extensions/screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com
+
+%files -n %{ext_prefix}-system-monitor
+%defattr(644,root,root,755)
+%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.system-monitor.gschema.xml
+%{_datadir}/gnome-shell/extensions/system-monitor@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-user-theme
 %defattr(644,root,root,755)
