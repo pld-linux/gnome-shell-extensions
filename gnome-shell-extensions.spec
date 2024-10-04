@@ -1,14 +1,14 @@
-%define		gshell_ver	46.0
+%define		gshell_ver	47.0
 
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Summary(pl.UTF-8):	Modyfikacje i rozszerzenia funkcjonalności i zachowania powłoki GNOME
 Name:		gnome-shell-extensions
-Version:	46.2
+Version:	47.0
 Release:	1
 Group:		X11/Applications
 License:	GPL v2+
-Source0:	https://download.gnome.org/sources/gnome-shell-extensions/46/%{name}-%{version}.tar.xz
-# Source0-md5:	915c2b4fd0c64ec6ef00029ef3edf3bb
+Source0:	https://download.gnome.org/sources/gnome-shell-extensions/47/%{name}-%{version}.tar.xz
+# Source0-md5:	0a688688f9efec699c40615e83383c8f
 URL:		https://wiki.gnome.org/Projects/GnomeShell/Extensions
 BuildRequires:	meson >= 0.58.0
 BuildRequires:	ninja >= 1.5
@@ -218,6 +218,18 @@ Software screenshots.
 To rozszerzenie powłoki GNOME pozwala łatwo zmieniać rozmiary okien na
 potrzeby zrzutów ekranu GNOME Software.
 
+%package -n %{ext_prefix}-status-icons
+Summary:	Status icons extension
+Summary(pl.UTF-8):	Rozszerzenie z ikonami stanu
+Group:		X11/Applications
+Requires:	%{name}-common = %{version}-%{release}
+
+%description -n %{ext_prefix}-status-icons
+GNOME extension to show status icons in the top bar.
+
+%description -n %{ext_prefix}-status-icons -l pl.UTF-8
+Rozszerzenie GNOME do pokazywania ikon stanu na górnej belce.
+
 %package -n %{ext_prefix}-system-monitor
 Summary:	Monitor system from the top bar
 Summary(pl.UTF-8):	Monitorowanie systemu z górnej belki
@@ -361,6 +373,12 @@ rm -rf $RPM_BUILD_ROOT
 %postun -n %{ext_prefix}-window-list
 %glib_compile_schemas
 
+%post -n %{ext_prefix}-workspace-indicator
+%glib_compile_schemas
+
+%postun -n %{ext_prefix}-workspace-indicator
+%glib_compile_schemas
+
 %files common -f %{name}.lang
 %defattr(644,root,root,755)
 %doc NEWS README.md
@@ -412,6 +430,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.screenshot-window-sizer.gschema.xml
 %{_datadir}/gnome-shell/extensions/screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com
 
+%files -n %{ext_prefix}-status-icons
+%defattr(644,root,root,755)
+%{_datadir}/gnome-shell/extensions/status-icons@gnome-shell-extensions.gcampax.github.com
+
 %files -n %{ext_prefix}-system-monitor
 %defattr(644,root,root,755)
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.system-monitor.gschema.xml
@@ -424,8 +446,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{ext_prefix}-window-list
 %defattr(644,root,root,755)
-%{_datadir}/gnome-shell/extensions/window-list@gnome-shell-extensions.gcampax.github.com
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.window-list.gschema.xml
+%{_datadir}/gnome-shell/extensions/window-list@gnome-shell-extensions.gcampax.github.com
 
 %files -n %{ext_prefix}-windowsNavigator
 %defattr(644,root,root,755)
@@ -433,4 +455,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{ext_prefix}-workspace-indicator
 %defattr(644,root,root,755)
+%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.workspace-indicator.gschema.xml
 %{_datadir}/gnome-shell/extensions/workspace-indicator@gnome-shell-extensions.gcampax.github.com
