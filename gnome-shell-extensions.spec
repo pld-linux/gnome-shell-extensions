@@ -3,12 +3,12 @@
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Summary(pl.UTF-8):	Modyfikacje i rozszerzenia funkcjonalności i zachowania powłoki GNOME
 Name:		gnome-shell-extensions
-Version:	47.2
+Version:	47.3
 Release:	1
 Group:		X11/Applications
 License:	GPL v2+
 Source0:	https://download.gnome.org/sources/gnome-shell-extensions/47/%{name}-%{version}.tar.xz
-# Source0-md5:	a6ab9c3b1a91620f28758aeab788207a
+# Source0-md5:	1f0e20e9d08999eb0894aca5d1748467
 URL:		https://wiki.gnome.org/Projects/GnomeShell/Extensions
 BuildRequires:	meson >= 1.1.0
 BuildRequires:	ninja >= 1.5
