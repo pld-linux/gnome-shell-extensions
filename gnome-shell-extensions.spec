@@ -3,18 +3,18 @@
 Summary:	Modify and extend GNOME Shell functionality and behavior
 Summary(pl.UTF-8):	Modyfikacje i rozszerzenia funkcjonalności i zachowania powłoki GNOME
 Name:		gnome-shell-extensions
-Version:	47.3
+Version:	47.4
 Release:	1
 Group:		X11/Applications
 License:	GPL v2+
 Source0:	https://download.gnome.org/sources/gnome-shell-extensions/47/%{name}-%{version}.tar.xz
-# Source0-md5:	1f0e20e9d08999eb0894aca5d1748467
+# Source0-md5:	20f555270c63bd91546289f2811ff85a
 URL:		https://wiki.gnome.org/Projects/GnomeShell/Extensions
 BuildRequires:	meson >= 1.1.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.22
 BuildRequires:	sassc
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildArch:	noarch
@@ -309,16 +309,16 @@ pulpit i pozwalający na przełączenie na inny.
 %setup -q
 
 %build
-%meson build \
+%meson \
 	-Dclassic_mode=true \
 	-Dextension_set=all
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %find_lang %{name}
 
